@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inflatable DIY LED panel light</title>
+<meta name="description" content="How to build a soft, wall-hanging, inflatable LED panel light with adjustable colour temperature for under AU$200. Parts list, diagrams and step-by-step build.">
+<meta property="og:title" content="Inflatable DIY LED panel light">
+<meta property="og:description" content="A 48 × 68 cm bi-colour LED soft light that packs flat. Parts, diagrams and build steps.">
+<meta property="og:image" content="images/hero.jpg">
+<style>
+  :root{
+    --bg:#f7f5f0; --panel:#ffffff; --ink:#1d1b17; --muted:#5e5a52; --line:#e2ddd3;
+    --accent:#c2541c; --accent-ink:#ffffff; --soft:#f1ece2;
+    --vplus:#d6402b; --cw:#2b6fd6; --ww:#d9a21b; --denim:#2f3d5c; --silver:#b9bcc4; --led:#f6e4a8; --tube:#3a3a3a; --diff:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15140f; --panel:#1e1c17; --ink:#f1ede4; --muted:#b4ad9f; --line:#33302a;
+      --accent:#f08a4b; --accent-ink:#15140f; --soft:#262319;
+      --denim:#5b6f9c; --silver:#8d9098; --led:#f6e4a8; --tube:#9a9a9a; --diff:#e8e8e8;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  img{max-width:100%;height:auto;display:block;border-radius:10px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px}
+  header.hero{padding:28px 0 8px}
+  .kicker{letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--muted);font-weight:600}
+  h1{font-size:clamp(30px,6vw,46px);line-height:1.1;margin:6px 0 10px;letter-spacing:-.01em}
+  .lede{font-size:19px;color:var(--muted);margin:0 0 18px;max-width:640px}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 18px}
+  .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+  .spec{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .spec b{display:block;font-size:20px;line-height:1.2}
+  .spec span{color:var(--muted);font-size:13px}
+  nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+  nav.toc a{text-decoration:none;background:var(--soft);color:var(--ink);padding:6px 12px;border-radius:999px;font-size:14px;border:1px solid var(--line)}
+  nav.toc a:hover{border-color:var(--accent)}
+  section{padding:26px 0 8px;border-top:1px solid var(--line);margin-top:22px}
+  h2{font-size:clamp(24px,4.5vw,32px);margin:0 0 6px;letter-spacing:-.01em}
+  h3{font-size:19px;margin:22px 0 6px}
+  p{margin:0 0 14px}
+  .step{display:grid;grid-template-columns:1fr;gap:16px;margin:18px 0 26px}
+  @media(min-width:700px){.step{grid-template-columns:3fr 2fr;align-items:start}.step.wide{grid-template-columns:1fr}}
+  .step .num{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:700;border-radius:8px;padding:2px 10px;font-size:14px;margin-bottom:6px}
+  figure{margin:0}
+  figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+  .diagram{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .diagram svg{width:100%;min-width:640px;height:auto;display:block}
+  .diagram .hint{display:none;font-size:12px;color:var(--muted);margin:0 0 6px}
+  @media(max-width:700px){.diagram .hint{display:block}}
+  .diagram .cap{font-size:13px;color:var(--muted);margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 14px}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  td.price{white-space:nowrap;text-align:right}
+  tfoot td{font-weight:700}
+  .note{background:var(--soft);border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:15px}
+  .note.warn{border-left-color:var(--vplus)}
+  ul{padding-left:22px;margin:0 0 14px}
+  li{margin:4px 0}
+  code{background:var(--soft);padding:1px 6px;border-radius:5px;font-size:.92em}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);text-decoration:none;padding:10px 18px;border-radius:10px;font-weight:600;margin:6px 8px 6px 0}
+  .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  footer{padding:30px 0 50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:30px}
+  .svg-text{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;fill:var(--ink)}
+  .svg-small{font:12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;fill:var(--muted)}
+  .svg-line{stroke:var(--ink);fill:none;stroke-width:1.5}
+  .svg-dim{stroke:var(--muted);fill:none;stroke-width:1;stroke-dasharray:4 3}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Open-source build guide</div>
+    <h1>Inflatable DIY LED panel light</h1>
+    <p class="lede">A 48 × 68 cm bi-colour soft light that hangs on a wall, packs flat and cost under AU$200 in parts. Here's exactly how I made it, so you can make one too (and hopefully make it better).</p>
+    <div class="hero-grid">
+      <img src="images/hero.jpg" alt="The finished panel light hanging on the wall above a desk, glowing evenly" width="900" height="1125">
+      <img src="images/hero-desk.jpg" alt="Me at my desk lit by the panel" width="900" height="1125">
+    </div>
+    <div class="specs">
+      <div class="spec"><b>48 × 68 cm</b><span>lit area, ~15 cm inflated border</span></div>
+      <div class="spec"><b>2700–5500 K</b><span>tunable white, CRI 95</span></div>
+      <div class="spec"><b>~46 W</b><span>24 V DC, Wi-Fi dimming</span></div>
+      <div class="spec"><b>Under AU$200</b><span>mostly bulk materials</span></div>
+    </div>
+    <nav class="toc" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#parts">Parts &amp; cost</a>
+      <a href="#electrics">1. Electrics</a>
+      <a href="#frame">2. Frame</a>
+      <a href="#assembly">3. Assembly</a>
+      <a href="#use">Using it</a>
+      <a href="#improve">Improve it</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="how">
+  <h2>How it works</h2>
+  <p>Big soft lights are expensive because of the frame. This one has no rigid frame at all: the LEDs sit on a denim panel lined with silver reflector, and a bicycle inner tube threaded through fabric sleeves around the edge inflates to hold a diffusion sheet a few centimetres off the LEDs. Let the air out and the whole thing folds up like a jacket.</p>
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 300" role="img" aria-labelledby="xs-title">
+      <title id="xs-title">Cross-section of the light showing backing, reflector, LEDs, inflated tube border and diffusion</title>
+      <!-- wall -->
+      <rect x="20" y="40" width="720" height="14" fill="var(--line)"/>
+      <text x="30" y="34" class="svg-small">wall</text>
+      <!-- backing denim -->
+      <rect x="60" y="150" width="640" height="10" fill="var(--denim)"/>
+      <!-- reflector -->
+      <rect x="110" y="142" width="540" height="8" fill="var(--silver)"/>
+      <!-- LED strips -->
+      <g fill="var(--led)" stroke="var(--ink)" stroke-width="1">
+        <rect x="128" y="132" width="26" height="10" rx="2"/><rect x="194" y="132" width="26" height="10" rx="2"/>
+        <rect x="260" y="132" width="26" height="10" rx="2"/><rect x="326" y="132" width="26" height="10" rx="2"/>
+        <rect x="392" y="132" width="26" height="10" rx="2"/><rect x="458" y="132" width="26" height="10" rx="2"/>
+        <rect x="524" y="132" width="26" height="10" rx="2"/><rect x="590" y="132" width="26" height="10" rx="2"/>
+      </g>
+      <!-- light rays -->
+      <g stroke="var(--ww)" stroke-width="1" opacity=".55">
+        <line x1="141" y1="132" x2="141" y2="96"/><line x1="207" y1="132" x2="207" y2="96"/><line x1="273" y1="132" x2="273" y2="96"/><line x1="339" y1="132" x2="339" y2="96"/>
+        <line x1="405" y1="132" x2="405" y2="96"/><line x1="471" y1="132" x2="471" y2="96"/><line x1="537" y1="132" x2="537" y2="96"/><line x1="603" y1="132" x2="603" y2="96"/>
+      </g>
+      <!-- inflated sleeves (tube + denim) -->
+      <circle cx="85" cy="125" r="34" fill="var(--denim)"/><circle cx="85" cy="125" r="27" fill="var(--tube)"/>
+      <circle cx="675" cy="125" r="34" fill="var(--denim)"/><circle cx="675" cy="125" r="27" fill="var(--tube)"/>
+      <!-- diffusion -->
+      <path d="M62 92 Q380 78 698 92" stroke="var(--ink)" stroke-width="5" fill="none"/>
+      <path d="M62 92 Q380 78 698 92" stroke="var(--diff)" stroke-width="3" fill="none"/>
+      <!-- velcro markers -->
+      <rect x="66" y="88" width="22" height="6" fill="var(--accent)"/><rect x="672" y="88" width="22" height="6" fill="var(--accent)"/>
+      <!-- labels -->
+      <g class="svg-text">
+        <text x="400" y="78" text-anchor="middle">diffusion (2 layers of ripstop nylon) on Velcro</text>
+        <text x="400" y="186" text-anchor="middle">denim backing panel 48 × 68 cm</text>
+      </g>
+      <g class="svg-small">
+        <text x="85" y="170" text-anchor="middle">inner tube in</text><text x="85" y="184" text-anchor="middle">denim sleeve</text>
+        <text x="675" y="170" text-anchor="middle">Velcro-closed</text><text x="675" y="184" text-anchor="middle">sleeve, 15 cm</text>
+        <text x="380" y="122" text-anchor="middle">8 × 60 cm CCT LED strips on silver reflector</text>
+      </g>
+      <!-- stand-off dimension -->
+      <line x1="730" y1="92" x2="730" y2="132" class="svg-dim"/>
+      <text x="738" y="116" class="svg-small">gap</text>
+      <!-- caption items -->
+      <g class="svg-small">
+        <text x="60" y="230">Tube inflates → border gets fat → diffusion stands off the LEDs → soft, even light.</text>
+        <text x="60" y="250">Deflate → everything folds flat.</text>
+      </g>
+      <g class="svg-text"><text x="60" y="285">Section view, not to scale</text></g>
+    </svg>
+  </div>
+</section>
+
+<section id="parts">
+  <h2>Parts &amp; cost</h2>
+  <p>Prices are what I actually paid in Australian dollars, in 2026. Most are bulk quantities (a 5 m reel, a roll of cable) and I only used some of it, but it felt more honest to list what I spent than what I used. Links are the exact listings I bought; swap in whatever you can get locally.</p>
+  <table>
+    <thead><tr><th>Part</th><th>Spec / notes</th><th class="price">Paid</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.aliexpress.com/item/1005005645881199.html">LED strip</a></td><td>Auxmer CCT 2700–5500 K, DC 24 V, white PCB, 120 LEDs/m, 9.6 W/m, CRI 95, 5 m reel. Three contacts: V+, CW, WW.</td><td class="price">$40</td></tr>
+      <tr><td><a href="https://www.aliexpress.com/item/1005010283420526.html">Silicone cable</a></td><td>24 AWG, three colours (for V+, CW, WW). Harness plus jumpers.</td><td class="price">$40</td></tr>
+      <tr><td><a href="https://www.aliexpress.com/item/1005007908415965.html">Denim</a></td><td>Backing panel and four edge sleeves.</td><td class="price">$11</td></tr>
+      <tr><td><a href="https://www.amazon.com.au/dp/B0GHR9BYHF">Velcro</a></td><td>Hook and loop, sew-on. Closes the sleeves and holds the diffusion.</td><td class="price">$20</td></tr>
+      <tr><td><a href="https://photo-shop-studio.com.au/twist-fold-reflectors-panels/fotolux-1-45-x-1m-black-silver-photography-reflective-cloth/">Silver reflective cloth</a></td><td>Photographic black/silver reflector fabric, cut to 48 × 68 cm.</td><td class="price">$35</td></tr>
+      <tr><td><a href="https://www.amazon.com.au/FITTOO-Replacement-Bicycle-Presta-Schrader/dp/B08WHJL54K">Inner tube</a></td><td>700 × 25C road bike tube. A new one was too short; a worn, stretched tube from my own bike fit perfectly. Ask a bike shop for a dead one.</td><td class="price">$16</td></tr>
+      <tr><td><a href="https://www.aliexpress.com/item/1005007043598419.html">Ripstop nylon</a></td><td>White 70D, 50 × 70 cm, used doubled over for diffusion.</td><td class="price">$1</td></tr>
+      <tr><td><a href="https://www.aliexpress.com/item/1005010128987519.html">CCT controller</a></td><td>Wi-Fi Tuya/Smart Life, 2-channel (CW/WW) 24 V dimmer.</td><td class="price">$15</td></tr>
+      <tr><td><a href="https://www.amazon.com.au/dp/B0CZ9D86HT">Power supply</a></td><td>24 V / 60 W plug pack, Australian plug, 5.5 × 2.1 mm barrel.</td><td class="price">$15</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="2">Total spent</td><td class="price">$193</td></tr></tfoot>
+  </table>
+  <h3>Consumables and tools</h3>
+  <ul>
+    <li>Heat shrink: 4 mm 2:1 glue-lined (harness joints) and 6 mm (over the LED strip contacts).</li>
+    <li>Soldering iron, solder, flux, wire strippers, a "helping hands" clamp, lighter or heat gun for the heat shrink.</li>
+    <li>Sewing machine with a denim needle, hand-sewing needle and strong thread, scissors, tape measure, pins.</li>
+    <li>Bike pump that matches your tube's valve.</li>
+  </ul>
+</section>
+
+<section id="electrics">
+  <h2>Part 1 · Electrics</h2>
+  <p>Everything is 24 V DC, so it's safe to work on, but the current adds up: eight 60 cm strips is 4.8 m of strip at 9.6 W/m, about 46 W, or roughly 1.9 A on the V+ line. Keep joints clean and keep the harness short.</p>
+
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 330" role="img" aria-labelledby="wire-title">
+      <title id="wire-title">Wiring block diagram: mains plug pack to 24 volt CCT controller to the three-wire harness feeding eight LED strips</title>
+      <g class="svg-text">
+        <rect x="20" y="40" width="150" height="70" rx="10" fill="var(--soft)" stroke="var(--line)"/>
+        <text x="95" y="68" text-anchor="middle">24 V / 60 W</text><text x="95" y="90" text-anchor="middle">plug pack</text>
+        <rect x="230" y="40" width="170" height="70" rx="10" fill="var(--soft)" stroke="var(--line)"/>
+        <text x="315" y="68" text-anchor="middle">Wi-Fi CCT controller</text><text x="315" y="90" text-anchor="middle">(Tuya)</text>
+      </g>
+      <g class="svg-small">
+        <text x="95" y="130" text-anchor="middle">230 V mains in</text>
+        <text x="315" y="130" text-anchor="middle">dims CW and WW channels</text>
+      </g>
+      <line x1="170" y1="75" x2="230" y2="75" class="svg-line" marker-end="url(#arr)"/>
+      <text x="200" y="66" text-anchor="middle" class="svg-small">barrel</text>
+      <!-- three wires out -->
+      <line x1="400" y1="60" x2="470" y2="60" stroke="var(--vplus)" stroke-width="4"/>
+      <line x1="400" y1="75" x2="470" y2="75" stroke="var(--cw)" stroke-width="4"/>
+      <line x1="400" y1="90" x2="470" y2="90" stroke="var(--ww)" stroke-width="4"/>
+      <g class="svg-small">
+        <text x="512" y="52">V+ (common)</text><text x="512" y="70">CW −</text><text x="512" y="88">WW −</text>
+      </g>
+      <!-- harness bus -->
+      <line x1="470" y1="60" x2="470" y2="300" stroke="var(--vplus)" stroke-width="4"/>
+      <line x1="486" y1="75" x2="486" y2="300" stroke="var(--cw)" stroke-width="4"/>
+      <line x1="502" y1="90" x2="502" y2="300" stroke="var(--ww)" stroke-width="4"/>
+      <text x="440" y="200" class="svg-text" transform="rotate(-90 440 200)" text-anchor="middle">harness, 3 × 24 AWG</text>
+      <!-- 8 strips tapping off -->
+      <g id="taps">
+        <g transform="translate(0,120)">
+          <line x1="470" y1="0" x2="580" y2="0" stroke="var(--vplus)" stroke-width="2"/>
+          <line x1="486" y1="6" x2="580" y2="6" stroke="var(--cw)" stroke-width="2"/>
+          <line x1="502" y1="12" x2="580" y2="12" stroke="var(--ww)" stroke-width="2"/>
+          <rect x="580" y="-6" width="160" height="24" rx="3" fill="var(--led)" stroke="var(--ink)"/>
+          <text x="660" y="10" text-anchor="middle" class="svg-small">LED strip 60 cm</text>
+        </g>
+      </g>
+      <use href="#taps" y="24"/><use href="#taps" y="48"/><use href="#taps" y="72"/>
+      <use href="#taps" y="96"/><use href="#taps" y="120"/><use href="#taps" y="144"/><use href="#taps" y="168"/>
+      <text x="20" y="318" class="svg-small">8 strips in parallel, all fed from the one harness</text>
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker></defs>
+    </svg>
+    <div class="cap">The strips are common-anode: V+ is shared, and the controller switches the CW and WW negative lines to mix colour temperature.</div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 1</span>
+      <h3>Cut the LED strips</h3>
+      <p>Cut eight 60 cm lengths from the reel at the marked cut lines (on this strip the cut points are every 10 cm, so 60 cm is six segments). That uses 4.8 m of the 5 m reel. Each strip has three solder pads at the cut end: <b>+</b>, <b>CW</b> and <b>WW</b>.</p>
+      <p>Tin all 24 pads now while the strips are flat on the bench. It's far easier than doing it later.</p>
+    </div>
+    <figure><img src="images/cut-strips.jpg" alt="Cutting 60 cm lengths of LED strip from the reel" loading="lazy" width="900" height="1125"><figcaption>Eight strips of 60 cm, cut on the printed lines.</figcaption></figure>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 2</span>
+      <h3>Make the harness</h3>
+      <p>The harness is three lengths of 24 AWG silicone cable, one each for V+, CW and WW, running along one short edge of the panel. Instead of cutting the wire at every strip, open a small <i>window</i> in the insulation every 5 cm (including right at the tip) so there's bare copper to solder a jumper onto. Eight windows per wire, one per strip.</p>
+      <p>Cut 24 jumpers of 7 cm (three per strip). Solder one end of each jumper into a window, then slide a piece of 4 mm glue-lined heat shrink over the joint and shrink it. The glue lining matters: these joints get flexed every time the light is folded.</p>
+      <p>Leave a generous tail at the start of the harness to reach the controller.</p>
+    </div>
+    <figure><img src="images/solder-harness.jpg" alt="Soldering jumpers onto the harness wire using a helping-hands clamp" loading="lazy" width="900" height="1125"><figcaption>Window-stripped harness wire with a jumper being soldered on. I was bad at this at the start; it comes quickly.</figcaption></figure>
+  </div>
+
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 380" role="img" aria-labelledby="harn-title">
+      <title id="harn-title">Harness detail: three wires with insulation windows every 5 centimetres, 7 centimetre jumpers down to the strip pads, heat shrink over every joint</title>
+      <!-- bus wires -->
+      <line x1="40" y1="50" x2="700" y2="50" stroke="var(--vplus)" stroke-width="8"/>
+      <line x1="40" y1="74" x2="700" y2="74" stroke="var(--cw)" stroke-width="8"/>
+      <line x1="40" y1="98" x2="700" y2="98" stroke="var(--ww)" stroke-width="8"/>
+      <g class="svg-small">
+        <text x="40" y="34">← to controller</text>
+        <text x="710" y="54">V+</text><text x="710" y="78">CW</text><text x="710" y="102">WW</text>
+      </g>
+      <!-- windows (bare copper) at 150, 300, 450, 600 -->
+      <g id="win">
+        <rect x="150" y="44" width="18" height="12" fill="#e9b98c" stroke="var(--ink)" stroke-width="1"/>
+        <rect x="150" y="68" width="18" height="12" fill="#e9b98c" stroke="var(--ink)" stroke-width="1"/>
+        <rect x="150" y="92" width="18" height="12" fill="#e9b98c" stroke="var(--ink)" stroke-width="1"/>
+      </g>
+      <use href="#win" x="150"/><use href="#win" x="300"/>
+      <!-- dimension between first two windows -->
+      <line x1="159" y1="124" x2="309" y2="124" class="svg-dim"/>
+      <line x1="159" y1="118" x2="159" y2="130" class="svg-dim"/><line x1="309" y1="118" x2="309" y2="130" class="svg-dim"/>
+      <text x="234" y="144" text-anchor="middle" class="svg-small">5 cm between windows</text>
+      <text x="234" y="158" text-anchor="middle" class="svg-small">(8 windows, the last at the tip)</text>
+      <text x="100" y="146" text-anchor="middle" class="svg-small">bare copper</text>
+      <text x="100" y="160" text-anchor="middle" class="svg-small">windows</text>
+      <line x1="118" y1="136" x2="152" y2="106" class="svg-dim"/>
+      <!-- finished joint at window 4 (x=600): jumpers soldered on, heat shrink over -->
+      <path d="M609 56 C609 170 560 200 520 240" stroke="var(--vplus)" stroke-width="4" fill="none"/>
+      <path d="M609 80 C609 180 585 210 544 240" stroke="var(--cw)" stroke-width="4" fill="none"/>
+      <path d="M609 104 C609 190 610 215 568 240" stroke="var(--ww)" stroke-width="4" fill="none"/>
+      <g fill="var(--tube)" opacity=".9">
+        <rect x="595" y="42" width="28" height="18" rx="4"/>
+        <rect x="595" y="66" width="28" height="18" rx="4"/>
+        <rect x="595" y="90" width="28" height="18" rx="4"/>
+      </g>
+      <text x="650" y="146" class="svg-small">4 mm glue-lined</text>
+      <text x="650" y="160" class="svg-small">heat shrink over</text>
+      <text x="650" y="174" class="svg-small">each joint</text>
+      <line x1="648" y1="140" x2="624" y2="104" class="svg-dim"/>
+      <text x="470" y="186" class="svg-small" text-anchor="end">7 cm jumpers,</text>
+      <text x="470" y="200" class="svg-small" text-anchor="end">one per pad</text>
+      <line x1="476" y1="190" x2="596" y2="170" class="svg-dim"/>
+      <!-- LED strip end -->
+      <rect x="500" y="240" width="220" height="44" rx="4" fill="var(--led)" stroke="var(--ink)"/>
+      <g fill="#c9a640" stroke="var(--ink)" stroke-width=".8">
+        <rect x="514" y="254" width="12" height="16"/><rect x="538" y="254" width="12" height="16"/><rect x="562" y="254" width="12" height="16"/>
+      </g>
+      <g fill="var(--ink)"><circle cx="610" cy="262" r="3"/><circle cx="640" cy="262" r="3"/><circle cx="670" cy="262" r="3"/><circle cx="700" cy="262" r="3"/></g>
+      <g class="svg-small"><text x="520" y="300" text-anchor="middle">+</text><text x="544" y="300" text-anchor="middle">CW</text><text x="568" y="300" text-anchor="middle">WW</text></g>
+      <text x="660" y="300" class="svg-small" text-anchor="middle">LED strip, cut end</text>
+      <!-- 6mm heat shrink over contacts -->
+      <rect x="502" y="236" width="80" height="52" rx="6" fill="none" stroke="var(--tube)" stroke-width="3" stroke-dasharray="6 3"/>
+      <text x="420" y="266" class="svg-small" text-anchor="end">6 mm heat shrink</text>
+      <text x="420" y="280" class="svg-small" text-anchor="end">over the pads</text>
+      <line x1="426" y1="270" x2="500" y2="262" class="svg-dim"/>
+      <text x="40" y="340" class="svg-text">Repeat at all 8 windows. The bus wire stays continuous: no cut-and-splice joints to fail.</text>
+      <text x="40" y="362" class="svg-small">Keep the colour code the same on every strip: red → +, blue → CW, yellow → WW (or whatever three colours you have).</text>
+    </svg>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 3</span>
+      <h3>Solder the strips on and test</h3>
+      <p>Solder the free end of each jumper trio onto the matching pads of a strip: red to <b>+</b>, and the other two to <b>CW</b> and <b>WW</b>. Keep the colour code consistent across all eight strips or you'll get a strip that warms when the others cool.</p>
+      <p>Slide 6 mm heat shrink over each strip end before soldering, then shrink it down over the pads once they're done. Now wire the harness tail into the controller (V+, CW, WW terminals), plug in the power supply and test <em>every strip</em> at both ends of the colour range before any sewing happens.</p>
+    </div>
+    <figure><img src="images/jumpers.jpg" alt="Soldering the three jumper wires onto the pads of an LED strip" loading="lazy" width="900" height="1125"><figcaption>Jumpers going onto the strip pads. Note the heat shrink waiting on the wire.</figcaption></figure>
+  </div>
+  <figure><img src="images/leds-test.jpg" alt="All eight LED strips lit up, held in a bundle before mounting" loading="lazy" width="900" height="1125" style="max-width:420px"><figcaption>All eight strips alive. Celebrate, then switch them off before they get hot in a bundle.</figcaption></figure>
+</section>
+
+<section id="frame">
+  <h2>Part 2 · Fabric frame</h2>
+  <p>All pieces include a 1 cm seam allowance on every edge. Finished dimensions are in bold, cut dimensions in brackets.</p>
+
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 420" role="img" aria-labelledby="cut-title">
+      <title id="cut-title">Cutting plan: one denim backing panel, four denim sleeves, a silver reflector and a doubled ripstop diffusion sheet</title>
+      <!-- backing -->
+      <rect x="30" y="40" width="200" height="280" fill="var(--denim)" opacity=".9"/>
+      <rect x="40" y="50" width="180" height="260" fill="none" stroke="#fff" stroke-dasharray="4 3" stroke-width="1"/>
+      <g class="svg-text" fill="#fff"><text x="130" y="170" text-anchor="middle" fill="#fff">Backing</text><text x="130" y="190" text-anchor="middle" fill="#fff">denim</text></g>
+      <g class="svg-small"><text x="130" y="340" text-anchor="middle">48 × 68 cm (cut 50 × 70)</text></g>
+      <!-- reflector -->
+      <rect x="260" y="40" width="200" height="280" fill="var(--silver)"/>
+      <g class="svg-text"><text x="360" y="170" text-anchor="middle">Reflector</text><text x="360" y="190" text-anchor="middle">silver cloth</text></g>
+      <g class="svg-small"><text x="360" y="340" text-anchor="middle">48 × 68 cm (no allowance)</text></g>
+      <!-- diffusion -->
+      <rect x="490" y="40" width="210" height="290" fill="var(--diff)" stroke="var(--ink)"/>
+      <rect x="498" y="48" width="194" height="274" fill="none" stroke="var(--accent)" stroke-width="5"/>
+      <g class="svg-text"><text x="595" y="170" text-anchor="middle">Diffusion</text><text x="595" y="190" text-anchor="middle">ripstop ×2 layers</text></g>
+      <g class="svg-small"><text x="595" y="350" text-anchor="middle">50 × 70 cm, hook Velcro round the edge</text></g>
+      <!-- sleeves -->
+      <rect x="30" y="370" width="300" height="34" fill="var(--denim)"/>
+      <rect x="340" y="370" width="220" height="34" fill="var(--denim)"/>
+      <g class="svg-small" fill="#fff"><text x="180" y="392" text-anchor="middle" fill="#fff">sleeve, 15 cm wide × long side</text><text x="450" y="392" text-anchor="middle" fill="#fff">sleeve, 15 cm × short side</text></g>
+      <text x="575" y="392" class="svg-small">two of each</text>
+    </svg>
+    <div class="cap">Four sleeves in total: two cut to the 68 cm side and two to the 48 cm side (plus allowances), each 15 cm wide. Dashed line on the backing is the 1 cm seam allowance.</div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 4</span>
+      <h3>Hem the backing and cut the sleeves</h3>
+      <p>Cut the denim backing to 50 × 70 cm and fold and press a 1 cm hem on all sides. Cut four denim strips 15 cm wide (plus allowance), two matching the long sides and two matching the short sides. Hem the short ends of each strip.</p>
+      <p>Why 15 cm? Wrapped around a 25 mm road tube the sleeve has a lot of slack. That slack is what lets a stretched, rectangular-ish tube sit in the sleeve without fighting it, and it gives you a fat, pillowy border that lifts the diffusion well clear of the LEDs.</p>
+    </div>
+    <figure><img src="images/sew-machine.jpg" alt="Sewing the denim panel on a domestic sewing machine" loading="lazy" width="900" height="1125"><figcaption>A domestic machine with a denim needle handles this fine. Go slowly over the thick corners.</figcaption></figure>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 5</span>
+      <h3>Add Velcro to the sleeves</h3>
+      <p>Each sleeve gets two Velcro strips before it's attached:</p>
+      <ul>
+        <li><b>Loop</b> (soft) side, sewn down the middle of the outside face, running the full length. The diffusion's hook edge grabs onto this once the frame is inflated.</li>
+        <li><b>Hook</b> (scratchy) side along the far long edge, on the inside face. This closes the sleeve into a tube.</li>
+      </ul>
+      <p>The sleeve closes with Velcro rather than a sewn seam on purpose: you need to get the inner tube in and out, and I swapped tubes twice before the frame was right.</p>
+    </div>
+    <figure><img src="images/sew-velcro.jpg" alt="Sewing a Velcro strip along a denim sleeve" loading="lazy" width="900" height="1125"><figcaption>Velcro going onto a sleeve. Sew-on Velcro, not the adhesive-backed kind, or the needle gums up.</figcaption></figure>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 6</span>
+      <h3>Sew the sleeves to the backing</h3>
+      <p>Lay a sleeve along one edge of the backing, right sides together, with a strip of <b>loop</b> Velcro sandwiched in the seam so that it ends up on the backing side. Sew the three layers (backing, Velcro, sleeve) together along that edge. Repeat on all four sides.</p>
+      <p>When the sleeve is wrapped around the tube, its hook edge mates with this loop strip, and the sleeve becomes a closed tube anchored to the panel edge. Finally, blanket-stitch each pair of adjacent sleeves together at the corners, up as far as the central Velcro line, so the corners hold their shape when inflated.</p>
+      <p>While you're at the top two corners, hand-sew a short tab of <b>hook</b> Velcro to the back of each one (the inflated corner is too bulky for the machine). That's the whole hanging system: two matching loop tabs stuck to the wall, and the light presses on and pulls off.</p>
+    </div>
+    <figure><img src="images/sew-sleeve.jpg" alt="Sewing a denim sleeve onto the edge of the backing panel" loading="lazy" width="900" height="1125"><figcaption>Sleeve, loop Velcro and backing all going through the machine as one seam.</figcaption></figure>
+  </div>
+
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 330" role="img" aria-labelledby="sleeve-title">
+      <title id="sleeve-title">Cross-section of one sleeve: the backing edge seam carries loop Velcro, the sleeve wraps round the inner tube and closes with its hook edge, and a second loop strip on the outside holds the diffusion</title>
+      <!-- backing -->
+      <rect x="330" y="200" width="400" height="12" fill="var(--denim)"/>
+      <text x="540" y="236" class="svg-text" text-anchor="middle">backing panel (LED side up)</text>
+      <!-- reflector + leds -->
+      <rect x="360" y="192" width="370" height="8" fill="var(--silver)"/>
+      <rect x="390" y="182" width="30" height="10" rx="2" fill="var(--led)" stroke="var(--ink)"/>
+      <rect x="470" y="182" width="30" height="10" rx="2" fill="var(--led)" stroke="var(--ink)"/>
+      <!-- sleeve wrapped around tube -->
+      <circle cx="240" cy="160" r="86" fill="var(--denim)"/>
+      <circle cx="240" cy="160" r="70" fill="var(--tube)"/>
+      <circle cx="240" cy="160" r="52" fill="var(--panel)"/>
+      <text x="240" y="156" class="svg-small" text-anchor="middle">inner</text><text x="240" y="170" class="svg-small" text-anchor="middle">tube</text>
+      <!-- seam with loop velcro at backing edge -->
+      <rect x="318" y="196" width="24" height="20" fill="var(--accent)"/>
+      <text x="330" y="262" class="svg-small" text-anchor="middle">loop Velcro</text>
+      <text x="330" y="276" class="svg-small" text-anchor="middle">in the seam</text>
+      <line x1="330" y1="218" x2="330" y2="250" class="svg-dim"/>
+      <!-- hook edge of sleeve meeting it -->
+      <path d="M318 206 L300 230" stroke="var(--denim)" stroke-width="12" stroke-linecap="round"/>
+      <rect x="296" y="222" width="18" height="12" fill="var(--vplus)" transform="rotate(-50 305 228)"/>
+      <text x="200" y="290" class="svg-small" text-anchor="middle">hook edge of sleeve closes onto the seam Velcro</text>
+      <line x1="260" y1="278" x2="296" y2="238" class="svg-dim"/>
+      <!-- outer loop line (for diffusion) at top of sleeve -->
+      <rect x="222" y="68" width="36" height="10" fill="var(--accent)"/>
+      <text x="240" y="30" class="svg-small" text-anchor="middle">loop Velcro down the outside middle of the sleeve</text><line x1="240" y1="36" x2="240" y2="60" class="svg-dim"/>
+      <!-- diffusion -->
+      <path d="M150 74 Q450 40 740 100" stroke="var(--ink)" stroke-width="5" fill="none"/>
+      <path d="M150 74 Q450 40 740 100" stroke="var(--diff)" stroke-width="3" fill="none"/>
+      <rect x="236" y="62" width="14" height="8" fill="var(--vplus)"/>
+      <text x="560" y="128" class="svg-small">diffusion, hook Velcro on its edge</text><line x1="600" y1="116" x2="600" y2="88" class="svg-dim"/>
+      <!-- legend -->
+      <rect x="30" y="300" width="14" height="10" fill="var(--accent)"/><text x="50" y="310" class="svg-small">loop (soft)</text>
+      <rect x="130" y="300" width="14" height="10" fill="var(--vplus)"/><text x="150" y="310" class="svg-small">hook (scratchy)</text>
+      <text x="520" y="310" class="svg-small" text-anchor="middle">Section through one edge, not to scale</text>
+    </svg>
+  </div>
+</section>
+
+<section id="assembly">
+  <h2>Part 3 · Assembly</h2>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 7</span>
+      <h3>Line the backing with reflector</h3>
+      <p>Cut the silver cloth to exactly 48 × 68 cm, the finished inside of the backing, silver side up, and attach it to the backing. I stitched it round the edge; the LED stitching in the next step pins it down across the middle. It bounces back the light that would otherwise soak into the denim, and it's the main reason the panel is as bright as it is.</p>
+    </div>
+    <figure><img src="images/stitch-leds.jpg" alt="Hand-stitching the first LED strips onto the silver reflector" loading="lazy" width="900" height="1125"><figcaption>Reflector in, first strips going on.</figcaption></figure>
+  </div>
+
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 490" role="img" aria-labelledby="layout-title">
+      <title id="layout-title">Plan view of the panel: eight LED strips running the long way at six centimetre spacing, the harness along the top short edge, and the controller at a corner</title>
+      <rect x="140" y="30" width="340" height="430" fill="var(--denim)"/>
+      <rect x="152" y="42" width="316" height="406" fill="var(--silver)"/>
+      <!-- 8 strips: 48cm width = 316px => 6.58px/cm; pitch 6cm = 39.5px; strip 60cm = 395px of 68cm=406 -->
+      <g fill="var(--led)" stroke="var(--ink)" stroke-width=".8">
+        <rect x="167" y="70" width="8" height="365" rx="2"/><rect x="206" y="70" width="8" height="365" rx="2"/>
+        <rect x="246" y="70" width="8" height="365" rx="2"/><rect x="285" y="70" width="8" height="365" rx="2"/>
+        <rect x="325" y="70" width="8" height="365" rx="2"/><rect x="364" y="70" width="8" height="365" rx="2"/>
+        <rect x="404" y="70" width="8" height="365" rx="2"/><rect x="443" y="70" width="8" height="365" rx="2"/>
+      </g>
+      <!-- stitch marks every 20cm (131px) -->
+      <g stroke="var(--vplus)" stroke-width="2">
+        <g id="st"><line x1="163" y1="72" x2="179" y2="72"/><line x1="163" y1="204" x2="179" y2="204"/><line x1="163" y1="336" x2="179" y2="336"/><line x1="163" y1="433" x2="179" y2="433"/></g>
+        <use href="#st" x="39.5"/><use href="#st" x="79"/><use href="#st" x="118.5"/><use href="#st" x="158"/><use href="#st" x="197.5"/><use href="#st" x="237"/><use href="#st" x="276.5"/>
+      </g>
+      <!-- harness along top -->
+      <line x1="160" y1="52" x2="460" y2="52" stroke="var(--vplus)" stroke-width="3"/>
+      <line x1="160" y1="56" x2="460" y2="56" stroke="var(--cw)" stroke-width="3"/>
+      <line x1="160" y1="60" x2="460" y2="60" stroke="var(--ww)" stroke-width="3"/>
+      <!-- jumpers -->
+      <g stroke="var(--ink)" stroke-width="1.5">
+        <line x1="171" y1="60" x2="171" y2="70"/><line x1="210" y1="60" x2="210" y2="70"/><line x1="250" y1="60" x2="250" y2="70"/><line x1="289" y1="60" x2="289" y2="70"/>
+        <line x1="329" y1="60" x2="329" y2="70"/><line x1="368" y1="60" x2="368" y2="70"/><line x1="408" y1="60" x2="408" y2="70"/><line x1="447" y1="60" x2="447" y2="70"/>
+      </g>
+      <!-- controller -->
+      <rect x="470" y="36" width="60" height="30" rx="4" fill="var(--soft)" stroke="var(--ink)"/>
+      <text x="500" y="55" class="svg-small" text-anchor="middle">controller</text>
+      <line x1="530" y1="51" x2="600" y2="51" class="svg-line"/>
+      <text x="606" y="55" class="svg-small">to PSU</text>
+      <!-- dims -->
+      <line x1="152" y1="470" x2="468" y2="470" class="svg-dim"/>
+      <text x="310" y="478" class="svg-small" text-anchor="middle">48 cm</text>
+      <line x1="120" y1="42" x2="120" y2="448" class="svg-dim"/>
+      <text x="110" y="250" class="svg-small" text-anchor="end" transform="rotate(-90 110 250)">68 cm</text>
+      <line x1="171" y1="20" x2="210" y2="20" class="svg-dim"/>
+      <text x="190" y="14" class="svg-small" text-anchor="middle">≈6 cm</text>
+      <!-- legend -->
+      <g class="svg-small">
+        <rect x="560" y="120" width="14" height="6" fill="var(--led)" stroke="var(--ink)" stroke-width=".8"/><text x="580" y="127">LED strip, 60 cm</text>
+        <line x1="560" y1="146" x2="574" y2="146" stroke="var(--vplus)" stroke-width="2"/><text x="580" y="150">hand stitch, every 20 cm</text>
+        <text x="580" y="164">plus both ends</text>
+        <line x1="560" y1="184" x2="574" y2="184" stroke="var(--cw)" stroke-width="3"/><text x="580" y="188">harness along short edge</text>
+        <text x="560" y="220">Harness windows are 5 cm</text><text x="560" y="234">apart; the 7 cm jumpers</text><text x="560" y="248">fan out to the ≈6 cm</text><text x="560" y="262">strip pitch.</text>
+      </g>
+    </svg>
+    <div class="cap">Strips run the long way, so the harness only has to cross the short edge. Leave a few centimetres of reflector clear at each end so the heat-shrunk strip ends aren't under the sleeve seam.</div>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 8</span>
+      <h3>Stitch the harness and LEDs down</h3>
+      <p>Lay the harness along the top short edge with the tail exiting at a corner. Hand-stitch it to the backing between each pair of joints and again where each jumper trio meets its strip, so a tug on the cable can't reach a solder joint.</p>
+      <p>Peel the 3M backing and stick the strips down at roughly 6 cm spacing, parallel to the long edge. Don't trust the adhesive on fabric: hand-stitch across every strip every 20 cm, and make sure you catch the very start and very end of each one. Three or four loops of strong thread over the strip between LEDs is enough.</p>
+    </div>
+    <figure><img src="images/strips-attached.jpg" alt="All eight LED strips stitched onto the silver backing with the harness along one edge" loading="lazy" width="900" height="1125"><figcaption>All eight strips down. The spacing looked too wide to me at this point; it isn't.</figcaption></figure>
+  </div>
+  <figure><img src="images/harness-corner.jpg" alt="Close-up of the harness corner with jumpers running to each strip and the controller tucked in" loading="lazy" width="900" height="1125" style="max-width:420px"><figcaption>Harness along the short edge, jumpers to each strip, controller sitting at the corner.</figcaption></figure>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 9</span>
+      <h3>Fit the inner tube</h3>
+      <p>Thread the inner tube through all four sleeves and close each sleeve onto its seam Velcro. Position the valve near a corner where you can reach it. Pump until the border is firm but not drum tight; the fabric does the shaping, the tube just needs to hold it there.</p>
+      <p>A new 700 × 25C tube was too short for a 48 × 68 rectangle and refused to go round the corners. Warming and stretching it didn't help. An old, well-used tube from my own bike had already stretched and softened and sat in the frame happily. So: ask a bike shop for a punctured 700C tube and patch it, or ride a new one for a season first.</p>
+    </div>
+    <figure><img src="images/open-diffusion.jpg" alt="The inflated frame with the diffusion peeled back to show the reflector and LED strips inside" loading="lazy" width="900" height="1125"><figcaption>Inflated, diffusion peeled back. The bulge of the tube is what sets the diffusion gap.</figcaption></figure>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 10</span>
+      <h3>Diffusion</h3>
+      <p>Fold the 50 × 70 cm ripstop nylon so you have two layers (one layer is too thin and you'll see the strips as stripes). Sew hook Velcro around the edge of the doubled sheet. With the frame inflated, press the sheet onto the loop line running round the outside of the sleeves. It should sit flat and slightly taut across the top of the inflated border, a few centimetres above the LEDs.</p>
+      <p>The diffusion also pulls the four sleeves into a true rectangle. Before it's on, the inflated frame is a bit of a blob; after, it's a panel.</p>
+    </div>
+    <figure><img src="images/diffusion.jpg" alt="Fitting the white diffusion sheet to the inflated frame" loading="lazy" width="900" height="1125"><figcaption>Diffusion going on.</figcaption></figure>
+  </div>
+
+  <div class="step">
+    <div>
+      <span class="num">Step 11</span>
+      <h3>Controller, power, pair</h3>
+      <p>Wire the harness tail into the controller's output terminals (V+, CW, WW), plug the 24 V supply into its input, and pair the controller with the Tuya / Smart Life app. You get brightness and colour temperature from your phone, and you can add it to a scene with your other lights. Tuck the controller into the corner of the frame and hang the light up.</p>
+    </div>
+    <figure><img src="images/packed.jpg" alt="The deflated light folded into a small bundle with the power supply on top" loading="lazy" width="900" height="1125"><figcaption>Deflated and folded. Lighter than the power supply feels.</figcaption></figure>
+  </div>
+
+  <div class="note warn"><b>Electrical notes.</b> 24 V DC won't hurt you, but the plug pack is mains. Don't open it, keep it off the floor, and use a supply with a proper Australian approval mark (or the equivalent where you are). At ~1.9 A the V+ line of a 24 AWG harness is near the top of its comfortable range; the strips nearest the controller will be marginally brighter than the far ones, which I can't see, but if you scale the panel up go to 20 AWG for the harness. Don't run the LEDs bundled up or folded for more than a few seconds: they rely on being spread out to shed heat.</div>
+</section>
+
+<section id="use">
+  <h2>Using it</h2>
+  <p>It hangs on the wall above my monitors and fills the room with soft, even light with no hot spots, even at the 6 cm strip spacing I was nervous about. Dial in 5500 K for daylight-balanced video calls, or warm it right down for an evening piece to camera. It hangs from a hook Velcro tab on the back of each top corner, mated to two loop tabs on the wall; it weighs so little that's all it needs, and taking it down is a one-handed pull. Because it has no frame, you can also bend it slightly to wrap the light around you.</p>
+  <div class="diagram">
+    <p class="hint">Swipe sideways to see the whole diagram ↔</p>
+    <svg viewBox="0 0 760 230" role="img" aria-labelledby="hang-title">
+      <title id="hang-title">Hanging: a hook Velcro tab on the back of each top corner of the light mates with a loop tab stuck to the wall</title>
+      <rect x="20" y="20" width="720" height="190" fill="var(--soft)"/>
+      <text x="32" y="40" class="svg-small">wall</text>
+      <rect x="130" y="60" width="500" height="150" rx="22" fill="var(--denim)"/>
+      <rect x="162" y="92" width="436" height="118" fill="var(--diff)"/>
+      <text x="380" y="160" class="svg-text" text-anchor="middle">light, seen from the front</text>
+      <g fill="var(--vplus)"><rect x="150" y="48" width="40" height="22" rx="3"/><rect x="570" y="48" width="40" height="22" rx="3"/></g>
+      <g fill="var(--accent)" opacity=".9"><rect x="150" y="36" width="40" height="12" rx="3"/><rect x="570" y="36" width="40" height="12" rx="3"/></g>
+      <text x="170" y="30" class="svg-small" text-anchor="middle">loop tab on wall</text>
+      <text x="590" y="30" class="svg-small" text-anchor="middle">loop tab on wall</text>
+      <text x="380" y="78" class="svg-small" text-anchor="middle">hook tab hand-sewn to the back of each top corner</text>
+      <line x1="300" y1="74" x2="192" y2="60" class="svg-dim"/><line x1="460" y1="74" x2="568" y2="60" class="svg-dim"/>
+    </svg>
+  </div>
+  <p>To pack it, pull off the diffusion, open the valve, fold it in thirds and roll the diffusion around it. It fits in a laptop bag with the power supply.</p>
+</section>
+
+<section id="improve">
+  <h2>Fork it, improve it</h2>
+  <p>This page lives in a GitHub repository, so if you build one, change something, or spot a mistake, open an issue or a pull request. Things I'd like to see someone try:</p>
+  <ul>
+    <li>A bigger version (say 60 × 90 cm) with a thicker harness and a 100 W supply.</li>
+    <li>USB-PD or V-mount battery power for shooting away from a wall socket.</li>
+    <li>A way to mount it on a light stand or boom, for use away from a wall.</li>
+    <li>A cheaper reflector. The photographic silver cloth is the second most expensive part; emergency blanket might do.</li>
+    <li>A proper pattern PDF with the pieces laid out for printing.</li>
+    <li>A Home Assistant or DMX-controlled dimmer in place of the Tuya box.</li>
+  </ul>
+  <p>
+    <a class="btn" href="https://github.com/mlorenzon/DIY-LED-light">View on GitHub</a>
+    <a class="btn secondary" href="https://github.com/mlorenzon/DIY-LED-light/fork">Fork this project</a>
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Designed and built by Matthew Lorenzon · <a href="https://www.instagram.com/YOUR_HANDLE">@YOUR_HANDLE on Instagram</a></p>
+    <p>Text, diagrams and photos are released under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Build one, share it, credit the source, and share your improvements the same way. Product links are to the listings I bought from; none are affiliate links.</p>
+  </div>
+</footer>
+
+</body>
+</html>
